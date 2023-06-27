@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+    <h1>Results</h1>
+    <p id="file-path" value="{{ file_name }}">{{ file_name }}</p>
+    <!-- Loading overlay -->
+    <div id="loadingOverlay" class="loading-overlay" style="display: none;">
+      <div class="loading-content">
+        <h4>Cargando...</h4>
+        <p><span id="loading-column"></span></p>
+        <button id="cancelButton" class="btn btn-danger mt-3">Cancelar</button>
+      </div>
+    </div>
+    <!-- End loading overlay -->
+    <div class="container-fluid my-4">
+    {% for col, dtype in columns.items() %}
+      <div class="input-group mb-2">
+        <div class="input-group-prepend w-30">
+          <span class="input-group-text w-100">{{ col }}</span>
+        </div>
+        <div class="input-group-prepend w-10">
+          <span class="input-group-text w-100">{{ dtype }}</span>
+        </div>
+        <div class="input-group-append">
+          <button class="btn btn-outline-success btn-visualize" value="{{ col }}" dtype="{{ dtype }}" type="button"><i class="fas fa-chart-line"></i> Visualize</button>
+          <button class="btn btn-outline-info btn-banding" value="{{ col }}" type="button"><i class="fas fa-edit"></i> Bandings</button>
+          <button class="btn btn-outline-warning btn-simulate-bandings" value="{{ col }}" type="button"><i class="fas fa-chart-bar"></i> Simulate</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <a class="btn btn-secondary" href="/">Atrás</a>
+    <button type="button" class="btn btn-success" id="btn-save-config">Guardar configuracion</button>
+    <button type="button" class="btn btn-warning" id="btn-load-config">Cargar configuracion</button>
+  </div>
+
+  <!-- Visualization modal -->
+  <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><span id="modal-title"></span></h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body d-flex justify-content-center align-items-center">
+          <img id="modalImage" class="img-fluid custom-image" src="" alt="Imagen">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End visualization modal -->
+  <!-- Banding modal -->
+  <div id="bandingModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><span id="bmodal-title"></span></h5>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body justify-content-center modal-banding-body">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="btn-save-banding" data-dismiss="modal">Guardar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End banding modal -->
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/resultados.js') }}"></script>
+{% endblock %}

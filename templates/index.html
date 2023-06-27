@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+  <h1><i class="fas fa-chart-bar"></i> Bandings Generator</h1>
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="s3://your-bucket/your-object/" id="rutaArchivo" value="C:\Users\yorca\Downloads\iris_csv.csv">
+    <div class="input-group-append">
+      <button class="btn btn-primary" type="button" id="btnContinuar">
+        <i class="fas fa-play"></i> Continuar
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
